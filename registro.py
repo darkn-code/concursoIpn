@@ -12,6 +12,8 @@ display = jetson.utils.videoOutput("display://0") # 'my_video.mp4' for file
 n = 0
 try:
     tabla = pd.read_csv('./CSV/registro.csv')
+    if not tabla.empty:
+        tabla.drop(["Unnamed: 0"],axis=1,inplace=True)
 except:
     tabla = pd.DataFrame({"Nombre":[],"Fecha":[],"Hora":[]})
 while display.IsStreaming():
