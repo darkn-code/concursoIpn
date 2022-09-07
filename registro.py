@@ -33,6 +33,7 @@ while display.IsStreaming():
             jetson.utils.saveImage('./imagenes/personas'+str(n)+'.png',img)
             time.sleep(5)
             n+=1
+            os.system('git add .')
             os.system('git commit -am "Registro"')
             os.system('git push origin master')
 
