@@ -29,9 +29,9 @@ while display.IsStreaming():
             print(tabla)
             n+=1
             jetson.utils.saveImage('./imagenes/personas'+str(n)+'.png',img)
+            time.sleep(5)
             os.system('git commit -am "Registro"')
             os.system('git push origin master')
-            time.sleep(5)
 
     display.Render(img)
     display.SetStatus("Object Detection | Network {:.0f} FPS".format(net.GetNetworkFPS()))
