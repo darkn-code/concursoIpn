@@ -9,13 +9,14 @@ import pandas as pd
 net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
 camera = jetson.utils.videoSource("/dev/video0")      # '/dev/video0' for V4L2
 display = jetson.utils.videoOutput("display://0") # 'my_video.mp4' for file
-n = 0
 try:
     tabla = pd.read_csv('./CSV/registro.csv')
     if not tabla.empty:
         tabla.drop(["Unnamed: 0"],axis=1,inplace=True)
+    n = len(tabla) - 1
 except:
     tabla = pd.DataFrame({"Nombre":[],"Fecha":[],"Hora":[]})
+    n = 0
 while display.IsStreaming():
     img = camera.Capture()
     detections = net.Detect(img)
@@ -29,9 +30,9 @@ while display.IsStreaming():
             tabla = tabla.append(nueva_fila,ignore_index=True)
             tabla.to_csv("./CSV/registro.csv")
             print(tabla)
-            n+=1
             jetson.utils.saveImage('./imagenes/personas'+str(n)+'.png',img)
             time.sleep(5)
+            n+=1
             os.system('git commit -am "Registro"')
             os.system('git push origin master')
 
