@@ -13,7 +13,7 @@ try:
     tabla = pd.read_csv('./CSV/registro.csv')
     if not tabla.empty:
         tabla.drop(["Unnamed: 0"],axis=1,inplace=True)
-    n = len(tabla) - 1
+    n = len(tabla)
 except:
     tabla = pd.DataFrame({"Nombre":[],"Fecha":[],"Hora":[]})
     n = 0
